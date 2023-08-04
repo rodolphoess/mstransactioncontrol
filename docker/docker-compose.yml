@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres
+    container_name: transactionsdb
+    volumes:
+      - ./create-database.sql:/docker-entrypoint-initdb.d/create-database.sql
+      - ./insert-operations.sql:/docker-entrypoint-initdb.d/insert-operations.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "transactionsdb"
+    ports:
+      - "5432:5432"
