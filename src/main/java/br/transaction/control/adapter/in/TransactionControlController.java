@@ -1,4 +1,6 @@
 package br.transaction.control.adapter.in;
 
-public class TransactionControlController {
+import br.transaction.control.port.in.TransactionControlPortIn;
+
+public class TransactionControlController implements TransactionControlPortIn {
 }
