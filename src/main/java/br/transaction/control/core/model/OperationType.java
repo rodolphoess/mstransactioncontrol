@@ -12,6 +12,6 @@ public enum OperationType {
     SAQUE(3),
     PAGAMENTO(4);
 
-    private final Integer key;
+    private final Integer type;
 
 }
