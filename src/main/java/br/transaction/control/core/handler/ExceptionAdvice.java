@@ -2,6 +2,7 @@ package br.transaction.control.core.handler;
 
 import br.transaction.control.adapter.exception.AccountNotFoundException;
 import br.transaction.control.adapter.exception.ExistingAccountException;
+import br.transaction.control.core.exception.InvalidDocumentNumberException;
 import br.transaction.control.core.exception.OperationTypeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,15 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
             ) {
         log.error("[HANDLER EXCEPTION] this_operation_type_is_invalid: " + e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("This operation type is invalid.");
+    }
+
+    @ExceptionHandler(value = {InvalidDocumentNumberException.class})
+    protected ResponseEntity<Object> invalidDocumentNumberException(
+            InvalidDocumentNumberException e,
+            WebRequest webRequest
+            ) {
+        log.error("[HANDLER EXCEPTION] document_number_is_invalid: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Document number is invalid.");
     }
 
 }
