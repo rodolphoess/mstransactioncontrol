@@ -62,4 +62,5 @@ docker-compose up
 5. Define if document number is a CPF or a CNPJ;
 6. Define if Account type is of a PF or PJ;
 7. Adding exception threatments on domain classes;
+8. Build a feature to dont show the document_number in logs;
 ```

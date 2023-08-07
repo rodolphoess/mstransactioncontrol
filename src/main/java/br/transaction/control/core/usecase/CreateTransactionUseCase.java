@@ -2,6 +2,7 @@ package br.transaction.control.core.usecase;
 
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
+import br.transaction.control.adapter.response.CreateTransactionResponse;
 import br.transaction.control.port.in.CreateTransactionPortIn;
 import br.transaction.control.port.out.TransactionControlPortOut;
 import lombok.extern.slf4j.Slf4j;
@@ -19,13 +20,13 @@ public class CreateTransactionUseCase implements CreateTransactionPortIn {
     private TransactionControlPortOut repository;
 
     @Override
-    public void execute(CreateTransactionRequest request) {
+    public CreateTransactionResponse execute(CreateTransactionRequest request) {
         var transaction = mapper.transactionRequestToTransaction(request)
                 .defineOperationType()
                 .reviewValueOfAmount()
                 .createDateTimeOfTransaction();
         log.info("[USE CASE] transaction_to_create: {}", transaction);
-        repository.createTransaction(transaction);
+        return repository.createTransaction(transaction);
     }
 
 }
