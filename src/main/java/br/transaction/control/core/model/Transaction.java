@@ -45,7 +45,7 @@ public class Transaction {
     }
 
     public Transaction reviewValueOfAmount() {
-        if (operationTypeDescription.equals(OperationType.PAGAMENTO)) {
+        if (!operationTypeDescription.equals(OperationType.PAGAMENTO)) {
             this.amount = amount.negate();
         }
         return this;
