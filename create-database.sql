@@ -1,9 +1,12 @@
 -- CREATE DATABASE transactioncontrol;
 
+CREATE SEQUENCE account_id_sequence START 1;
+CREATE SEQUENCE transaction_id_sequence START 1;
+
 CREATE TABLE "account" (
-    "account_id" BIGINT NOT NULL PRIMARY KEY,
+    "account_id" BIGINT NOT NULL DEFAULT nextval('account_id_sequence') PRIMARY KEY,
     "document_number" VARCHAR NOT NULL,
-    "account_type" VARCHAR NOT NULL
+    "account_type" VARCHAR
 );
 
 CREATE TABLE "operation_type" (
@@ -12,7 +15,7 @@ CREATE TABLE "operation_type" (
 );
 
 CREATE TABLE "transaction" (
-    "transaction_id" BIGINT NOT NULL PRIMARY KEY,
+    "transaction_id" BIGINT NOT NULL DEFAULT nextval('transaction_id_sequence') PRIMARY KEY,
     "account_id" BIGINT NOT NULL,
     "operation_id" BIGINT NOT NULL,
     "amount" DECIMAL NOT NULL,

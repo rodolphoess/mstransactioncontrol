@@ -5,6 +5,7 @@ import br.transaction.control.adapter.request.CreateTransactionRequest;
 import br.transaction.control.core.usecase.CreateAccountUseCase;
 import br.transaction.control.port.in.TransactionControlPortIn;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
@@ -24,6 +26,7 @@ public class TransactionControlController implements TransactionControlPortIn {
     @Override
     @PostMapping("account")
     public ResponseEntity<Object> createAccount(@RequestBody @Valid CreateAccountRequest request) {
+        log.info("[CONTROLLER] create_account_request: {}", request);
         createAccountUseCase.execute(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("Account was created with success!");
     }
