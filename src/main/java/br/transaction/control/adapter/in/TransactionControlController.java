@@ -2,16 +2,15 @@ package br.transaction.control.adapter.in;
 
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
-import br.transaction.control.core.usecase.CreateAccountUseCase;
+import br.transaction.control.port.in.CreateAccountPortIn;
+import br.transaction.control.port.in.CreateTransactionPortIn;
+import br.transaction.control.port.in.RetrieveAccountPortIn;
 import br.transaction.control.port.in.TransactionControlPortIn;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,9 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class TransactionControlController implements TransactionControlPortIn {
 
-    private final CreateAccountUseCase createAccountUseCase;
+    private final CreateAccountPortIn createAccountUseCase;
+    private final RetrieveAccountPortIn retrieveAccountPortIn;
+//    private final CreateTransactionPortIn createTransactionUseCase;
 
     @Override
     @PostMapping("account")
@@ -32,8 +33,11 @@ public class TransactionControlController implements TransactionControlPortIn {
     }
 
     @Override
-    public ResponseEntity<Object> getAccount(Long accountId) {
-        return null;
+    @GetMapping("account/{accountId}")
+    public ResponseEntity<Object> getAccount(@PathVariable Long accountId) {
+        log.info("[CONTROLLER] starting_get_account_by_id: {}", accountId);
+        var account = retrieveAccountPortIn.execute(accountId);
+        return ResponseEntity.ok().body(account);
     }
 
     @Override

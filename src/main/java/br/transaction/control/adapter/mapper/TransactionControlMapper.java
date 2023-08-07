@@ -16,4 +16,6 @@ public interface TransactionControlMapper {
 
     CreateAccountResponse accountEntityToResponse(AccountEntity entity);
 
+    AccountResponse accountEntityToAccountResponse(AccountEntity entity);
+
 }
