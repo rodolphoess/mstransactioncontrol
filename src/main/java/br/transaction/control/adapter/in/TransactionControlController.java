@@ -33,11 +33,7 @@ public class TransactionControlController implements TransactionControlPortIn {
             log.info("[CONTROLLER] create_account_request: {}", request);
             createAccountUseCase.execute(request);
             return ResponseEntity.status(HttpStatus.CREATED).body("The account was created with success!");
-        }
-//        catch (ExistingAccountException e) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body("This account already exists.");
-//        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("This account already exists.");
         }
     }

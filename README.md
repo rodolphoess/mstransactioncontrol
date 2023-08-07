@@ -45,12 +45,20 @@ cd IdeaProjects/mstranscationcontrol
 ```
 
 ```bash
+cd IdeaProjects/mstranscationcontrol
+```
+
+```bash
 docker-compose build
 ```
 
 ```bash
 docker-compose up
 ```
+
+## To send application requests
+
+In the paste `collection` you'll find a Postman collection. You can import this in your Postman and send some requests after start the application with command `docker-compose up`.
 
 ## To do
 
