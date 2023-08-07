@@ -61,5 +61,5 @@ docker-compose up
 4. Validate the document number;
 5. Define if document number is a CPF or a CNPJ;
 6. Define if Account type is of a PF or PJ;
-7. 
+7. Adding exception threatments on domain classes;
 ```
