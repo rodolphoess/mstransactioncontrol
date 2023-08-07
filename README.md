@@ -45,7 +45,7 @@ cd IdeaProjects/mstranscationcontrol
 ```
 
 ```bash
-cd IdeaProjects/mstranscationcontrol
+mvn clean install -DskipTests=true
 ```
 
 ```bash
@@ -58,7 +58,7 @@ docker-compose up
 
 ## To send application requests
 
-In the paste `collection` you'll find a Postman collection. You can import this in your Postman and send some requests after start the application with command `docker-compose up`.
+In the paste `collection` on the application, you'll find a Postman collection. You can import this in your Postman and send some requests after start the application with command `docker-compose up`.
 
 ## To do
 
