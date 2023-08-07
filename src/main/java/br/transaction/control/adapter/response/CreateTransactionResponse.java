@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public class CreateTransactionResponse {
 
     private Long transactionId;
-    private Integer accountId;
-    private Integer operationType;
+    private Long accountId;
+    private Long operationType;
     private BigDecimal amount;
     private LocalDateTime eventDate;
 

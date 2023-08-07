@@ -22,11 +22,13 @@ public class CreateTransactionUseCase implements CreateTransactionPortIn {
     @Override
     public CreateTransactionResponse execute(CreateTransactionRequest request) {
         var transaction = mapper.transactionRequestToTransaction(request)
-                .defineOperationType()
+                .buildOperation(request.getOperationType())
                 .reviewValueOfAmount()
                 .createDateTimeOfTransaction();
         log.info("[USE CASE] transaction_to_create: {}", transaction);
-        return repository.createTransaction(transaction);
+        var transactionSaved = repository.createTransaction(transaction);
+        log.info("[USE CASE] transaction_saved: {}", transactionSaved);
+        return transactionSaved;
     }
 
 }

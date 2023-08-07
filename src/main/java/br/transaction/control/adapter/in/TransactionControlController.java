@@ -29,41 +29,25 @@ public class TransactionControlController implements TransactionControlPortIn {
     @Override
     @PostMapping("account")
     public ResponseEntity<Object> createAccount(@RequestBody @Valid CreateAccountRequest request) {
-        try {
-            log.info("[CONTROLLER] create_account_request: {}", request);
-            createAccountUseCase.execute(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body("The account was created with success!");
-        }
-//        catch (ExistingAccountException e) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT).body("This account already exists.");
-//        }
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("This account already exists.");
-        }
+        log.info("[CONTROLLER] create_account_request: {}", request);
+        createAccountUseCase.execute(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body("The account was created with success!");
     }
 
     @Override
     @GetMapping("account/{accountId}")
     public ResponseEntity<Object> getAccount(@PathVariable Long accountId) {
-        try {
-            log.info("[CONTROLLER] starting_get_account_by_id: {}", accountId);
-            var account = retrieveAccountPortIn.execute(accountId);
-            return ResponseEntity.ok().body(account);
-        } catch (AccountNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account was not found.");
-        }
+        log.info("[CONTROLLER] starting_get_account_by_id: {}", accountId);
+        var account = retrieveAccountPortIn.execute(accountId);
+        return ResponseEntity.ok().body(account);
     }
 
     @Override
     @PostMapping("transaction")
     public ResponseEntity<Object> createTransaction(@RequestBody @Valid CreateTransactionRequest request) {
-        try {
-            log.info("[CONTROLLER] create_transaction_request: {}", request);
-            createTransactionUseCase.execute(request);
-            return ResponseEntity.status(HttpStatus.CREATED).body("The transaction was created with success!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An error ocurred when trying create a transaction");
-        }
+        log.info("[CONTROLLER] create_transaction_request: {}", request);
+        createTransactionUseCase.execute(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body("The transaction was created with success!");
     }
 
 }
