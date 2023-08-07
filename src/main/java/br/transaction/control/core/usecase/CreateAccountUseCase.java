@@ -22,14 +22,9 @@ public class CreateAccountUseCase implements CreateAccountPortIn {
 
     @Override
     public CreateAccountResponse execute(CreateAccountRequest request) {
-        try {
-            var account = mapper.requestToAccount(request);
-            log.info("[USE CASE] account_to_be_save: {}", account);
-            return repository.createAccount(account);
-        } catch (ExistingAccountException e) {
-            log.error("[USE CASE] this_account_already_exists: {}", request);
-            throw new ExistingAccountException("This account already exists.");
-        }
+        var account = mapper.requestToAccount(request);
+        log.info("[USE CASE] account_to_be_save: {}", account);
+        return repository.createAccount(account);
     }
 
 }

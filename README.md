@@ -65,10 +65,11 @@ In the paste `collection` on the application, you'll find a Postman collection. 
 ```text
 1. More unit and integrated tests;
 2. Reorganize the Docker files;
-3. Build a Exception handler;
+1. Build a Exception handler; OK
+1. Reorganize the model class Transaction; OK
 4. Validate the document number;
 5. Define if document number is a CPF or a CNPJ;
 6. Define if Account type is of a PF or PJ;
-7. Adding exception threatments on domain classes;
+7. Adding exception threatments on domain classes; OK
 8. Build a feature to dont show the document_number in logs;
 ```

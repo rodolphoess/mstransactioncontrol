@@ -14,38 +14,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Transaction {
 
-    private Long accountId;
+    private Long transactionId;
     private Account account;
-    private Long operationType;
-    private OperationType operationTypeDescription;
+    private Operation operation;
     private BigDecimal amount;
     private LocalDateTime eventDate;
 
-    public Transaction defineOperationType() {
-        if (this.operationType.equals(OperationType.COMPRA_A_VISTA.getType())) {
-            this.operationTypeDescription = OperationType.COMPRA_A_VISTA;
-            return this;
-        }
-
-        if (this.operationType.equals(OperationType.COMPRA_PARCELADA.getType())) {
-            this.operationTypeDescription = OperationType.COMPRA_PARCELADA;
-            return this;
-        }
-
-        if (this.operationType.equals(OperationType.SAQUE.getType())) {
-            this.operationTypeDescription = OperationType.SAQUE;
-            return this;
-        }
-
-        if (this.operationType.equals(OperationType.PAGAMENTO.getType())) {
-            this.operationTypeDescription = OperationType.PAGAMENTO;
-            return this;
-        }
+    public Transaction buildOperation(Long operationId) {
+        this.operation = operation.defineOperationType(operationId);
         return this;
     }
 
     public Transaction reviewValueOfAmount() {
-        if (!operationTypeDescription.equals(OperationType.PAGAMENTO)) {
+        if (!operation.getOperationType().equals(OperationType.PAGAMENTO)) {
             this.amount = amount.negate();
         }
         return this;

@@ -12,6 +12,6 @@ public enum OperationType {
     SAQUE(3L),
     PAGAMENTO(4L);
 
-    private final Long type;
+    private final Long id;
 
 }

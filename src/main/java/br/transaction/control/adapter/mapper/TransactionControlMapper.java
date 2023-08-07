@@ -1,7 +1,6 @@
 package br.transaction.control.adapter.mapper;
 
 import br.transaction.control.adapter.out.entity.AccountEntity;
-import br.transaction.control.adapter.out.entity.OperationTypeEntity;
 import br.transaction.control.adapter.out.entity.TransactionEntity;
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
@@ -24,10 +23,14 @@ public interface TransactionControlMapper {
 
     AccountResponse accountEntityToAccountResponse(AccountEntity entity);
 
+    @Mapping(source = "accountId", target = "account.accountId")
+    @Mapping(source = "operationType", target = "operation.operationId")
     Transaction transactionRequestToTransaction(CreateTransactionRequest request);
 
+    @Mapping(source = "operation.operationId", target = "operationType")
     TransactionEntity transactionToTransactionEntity(Transaction transaction);
 
+    @Mapping(source = "account.accountId", target = "accountId")
     CreateTransactionResponse transactionEntityToResponse(TransactionEntity transactionEntity);
 
 }
