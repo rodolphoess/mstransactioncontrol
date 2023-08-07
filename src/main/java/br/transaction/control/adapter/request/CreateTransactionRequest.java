@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CreateTransactionRequest {
 
-    private Integer accountId;
+    private Long accountId;
     private Integer operationType;
     private BigDecimal amount;
 

@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AccountResponse {
 
-    private Integer accountId;
+    private Long accountId;
     private String documentNumber;
+    private String accountType;
 
 }

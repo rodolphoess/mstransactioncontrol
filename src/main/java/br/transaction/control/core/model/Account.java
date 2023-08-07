@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Account {
 
-    private Integer accountId;
     private String documentNumber;
     private String accountType;
 

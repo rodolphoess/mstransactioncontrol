@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres_transactions
+    volumes:
+      - ./create-database.sql:/docker-entrypoint-initdb.d/create-database.sql
+      - ./insert-operations.sql:/docker-entrypoint-initdb.d/insert-operations.sql
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "transactioncontrol"
+    ports:
+      - "5432:5432"
+
+  mstransactioncontrol:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/transactioncontrol"
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "postgres"
+    ports:
+      - "8080:8080"
