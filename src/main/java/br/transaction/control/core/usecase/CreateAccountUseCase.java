@@ -1,5 +1,6 @@
 package br.transaction.control.core.usecase;
 
+import br.transaction.control.adapter.exception.ExistingAccountException;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.port.in.CreateAccountPortIn;
@@ -20,9 +21,13 @@ public class CreateAccountUseCase implements CreateAccountPortIn {
 
     @Override
     public void execute(CreateAccountRequest request) {
-        var account = mapper.requestToAccount(request);
-        log.info("[USE CASE] account_to_be_save: {}", account);
-        repository.createAccount(account);
+        try {
+            var account = mapper.requestToAccount(request);
+            log.info("[USE CASE] account_to_be_save: {}", account);
+            repository.createAccount(account);
+        } catch (ExistingAccountException e) {
+            log.error("[USE CASE] this_account_already_exists: {}", request);
+        }
     }
 
 }
