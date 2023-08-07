@@ -1,6 +1,5 @@
 package br.transaction.control.core.usecase;
 
-import br.transaction.control.adapter.exception.ExistingAccountException;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.response.CreateAccountResponse;
@@ -22,7 +21,9 @@ public class CreateAccountUseCase implements CreateAccountPortIn {
 
     @Override
     public CreateAccountResponse execute(CreateAccountRequest request) {
-        var account = mapper.requestToAccount(request);
+        var account = mapper.requestToAccount(request)
+                .removeSpecialCharactersFromDocumentNumber()
+                .validateDocumentNumber();
         log.info("[USE CASE] account_to_be_save: {}", account);
         return repository.createAccount(account);
     }
