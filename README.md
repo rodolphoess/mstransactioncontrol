@@ -41,7 +41,7 @@ This is the fluxogram for the POST-account, GET-account and POST-transaction fea
 To run this project you will need a Docker environment in your machine. If you have this, trying this in your terminal:
 
 ```bash
-cd IdeaProjects/mstranscationcontrol
+cd IdeaProjects/mstransactioncontrol
 ```
 
 ```bash
