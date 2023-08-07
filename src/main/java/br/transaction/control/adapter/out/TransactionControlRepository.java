@@ -32,8 +32,10 @@ public class TransactionControlRepository implements TransactionControlPortOut {
 
     @Override
     public CreateAccountResponse createAccount(Account account) {
-        accountJpaRepository.findByDocumentNumber(account.getDocumentNumber())
-                .orElseThrow(() -> new ExistingAccountException("Account was created before."));
+        var accountExists = accountJpaRepository.findByDocumentNumber(account.getDocumentNumber());
+        if (accountExists.isPresent()) {
+            throw new ExistingAccountException("This account already exists.");
+        }
         var savedAccount = accountJpaRepository.save(mapper.accountToEntity(account));
         log.info("[REPOSITORY] saved_account: {}", savedAccount);
         return mapper.accountEntityToResponse(savedAccount);
