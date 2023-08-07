@@ -44,7 +44,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"document_number\": \"07498554445\"\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -73,7 +73,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"account_id\": 1,\n    \"operation_type\": 3,\n    \"amount\": 235.68\n}",
+					"raw": "{\n    \"account_id\": 1,\n    \"operation_type\": 4,\n    \"amount\": 235.68\n}",
 					"options": {
 						"raw": {
 							"language": "json"

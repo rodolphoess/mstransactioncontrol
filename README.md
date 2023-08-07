@@ -51,3 +51,15 @@ docker-compose build
 ```bash
 docker-compose up
 ```
+
+## To do
+
+```text
+1. More unit and integrated tests;
+2. Reorganize the Docker files;
+3. Build a Exception handler;
+4. Validate the document number;
+5. Define if document number is a CPF or a CNPJ;
+6. Define if Account type is of a PF or PJ;
+7. 
+```
