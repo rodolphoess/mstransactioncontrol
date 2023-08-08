@@ -26,7 +26,7 @@ public class Transaction {
     }
 
     public Transaction reviewValueOfAmount() {
-        if (!operation.getOperationType().equals(OperationType.PAGAMENTO)) {
+        if (isOperationDifferentOfPayment()) {
             this.amount = amount.negate();
         }
         return this;
@@ -35,6 +35,10 @@ public class Transaction {
     public Transaction createDateTimeOfTransaction() {
         this.eventDate = LocalDateTime.now();
         return this;
+    }
+
+    private boolean isOperationDifferentOfPayment() {
+        return !operation.getOperationType().equals(OperationType.PAGAMENTO);
     }
 
 }

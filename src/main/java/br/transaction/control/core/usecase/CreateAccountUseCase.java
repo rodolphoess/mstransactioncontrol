@@ -23,7 +23,7 @@ public class CreateAccountUseCase implements CreateAccountPortIn {
     public CreateAccountResponse execute(CreateAccountRequest request) {
         var account = mapper.requestToAccount(request)
                 .removeSpecialCharactersFromDocumentNumber()
-                .validateDocumentNumber();
+                .defineAccountType();
         log.info("[USE CASE] account_to_be_save: {}", account);
         return repository.createAccount(account);
     }
