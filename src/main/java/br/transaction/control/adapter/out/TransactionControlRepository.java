@@ -18,6 +18,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 
 @Slf4j
 @Repository
@@ -60,6 +61,11 @@ public class TransactionControlRepository implements TransactionControlPortOut {
         var accountEntity = getAccountById(accountId);
         log.info("[REPOSITORY] retrivied_account_from_account_id: {}", accountEntity);
         return mapper.accountEntityToAccountResponse(accountEntity);
+    }
+
+    @Override
+    public BigDecimal getAmountSum(Long accountId, Long days) {
+        return transactionJpaRepository.sumOfAmountOnTheLast30Days(accountId, days);
     }
 
     private AccountEntity getAccountById(Long accountId) {
