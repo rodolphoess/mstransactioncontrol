@@ -23,7 +23,7 @@ public class Account {
         return this;
     }
 
-    public Account validateDocumentNumber() {
+    public Account defineAccountType() {
         var cnpj = new CNPJValidator();
         var cpf = new CPFValidator();
         if (cnpj.isValid(documentNumber, null)) {
