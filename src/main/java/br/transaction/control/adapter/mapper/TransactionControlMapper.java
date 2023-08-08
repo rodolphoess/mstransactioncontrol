@@ -7,6 +7,7 @@ import br.transaction.control.adapter.request.CreateTransactionRequest;
 import br.transaction.control.adapter.response.AccountResponse;
 import br.transaction.control.adapter.response.CreateAccountResponse;
 import br.transaction.control.adapter.response.CreateTransactionResponse;
+import br.transaction.control.adapter.response.TransactionResponse;
 import br.transaction.control.core.model.Account;
 import br.transaction.control.core.model.Transaction;
 import org.mapstruct.Mapper;
@@ -31,6 +32,8 @@ public interface TransactionControlMapper {
     TransactionEntity transactionToTransactionEntity(Transaction transaction);
 
     @Mapping(source = "account.accountId", target = "accountId")
-    CreateTransactionResponse transactionEntityToResponse(TransactionEntity transactionEntity);
+    CreateTransactionResponse transactionEntityToCreateTransactionResponse(TransactionEntity transactionEntity);
 
+    @Mapping(source = "account.accountId", target = "accountId")
+    TransactionResponse transactionEntityToTransactionResponse(TransactionEntity transactionEntity);
 }
