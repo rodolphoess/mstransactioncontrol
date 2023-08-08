@@ -2,6 +2,7 @@ package br.transaction.control;
 
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
+import br.transaction.control.adapter.response.AccountResponse;
 import br.transaction.control.adapter.response.CreateAccountResponse;
 import br.transaction.control.adapter.response.CreateTransactionResponse;
 import br.transaction.control.core.model.Account;
@@ -62,6 +63,14 @@ public class MockFactory {
                 .operationType(OPERATION_TYPE_2)
                 .amount(AMOUNT)
                 .eventDate(EVENT_DATE)
+                .build();
+    }
+
+    public static AccountResponse accountResponse() {
+        return AccountResponse.builder()
+                .accountId(ACCOUNT_ID)
+                .accountType(ACCOUNT_TYPE)
+                .documentNumber(DOCUMENT_NUMBER_CPF)
                 .build();
     }
 }

@@ -1,7 +1,5 @@
 package br.transaction.control.adapter.in;
 
-import br.transaction.control.adapter.exception.AccountNotFoundException;
-import br.transaction.control.adapter.exception.ExistingAccountException;
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
 import br.transaction.control.port.in.CreateAccountPortIn;
