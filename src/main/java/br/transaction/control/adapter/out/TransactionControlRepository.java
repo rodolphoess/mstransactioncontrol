@@ -2,6 +2,7 @@ package br.transaction.control.adapter.out;
 
 import br.transaction.control.adapter.exception.AccountNotFoundException;
 import br.transaction.control.adapter.exception.ExistingAccountException;
+import br.transaction.control.adapter.exception.InsuficientCreditLimit;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.out.entity.AccountEntity;
 import br.transaction.control.adapter.out.jpa.AccountJpaRepository;
@@ -18,10 +19,10 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 
 @Slf4j
 @Repository
-@Transactional
 @AllArgsConstructor
 public class TransactionControlRepository implements TransactionControlPortOut {
 
@@ -42,17 +43,41 @@ public class TransactionControlRepository implements TransactionControlPortOut {
     }
 
     @Override
+    @Transactional
     public CreateTransactionResponse createTransaction(Transaction transaction) {
         var entity = mapper.transactionToTransactionEntity(transaction);
 
         var account = getAccountById(transaction.getAccount().getAccountId());
         entity.setAccount(account);
 
-        log.info("[REPOSITORY] transaction_to_save: {}", entity);
+        //TODO: Remove this code to the UseCase. This is a negotial treatment.
+        if (account.getCreditLimit().compareTo(transaction.getAmount()) < 0) {
+            throw new InsuficientCreditLimit("Dont have limit for this operation.");
+        }
 
+        log.info("[REPOSITORY] transaction_to_save: {}", entity);
         var transactionEntity = transactionJpaRepository.save(entity);
         log.info("[REPOSITORY] transaction_saved_with_id: {}", transactionEntity.getTransactionId());
+
+        var newCreditLimit = evaluateNewCreditLimit(account.getCreditLimit(), transactionEntity.getAmount(), transactionEntity.getOperationType());
+        log.info("new_credit_limit {}", newCreditLimit);
+        changeCreditLimit(newCreditLimit, account.getAccountId());
+
         return mapper.transactionEntityToResponse(transactionEntity);
+    }
+
+    //TODO: Remove this code to core/domain layer.
+    private BigDecimal evaluateNewCreditLimit(BigDecimal creditLimit, BigDecimal amount, Long operationType) {
+        if (operationType.equals(4L)) {
+            return creditLimit.add(amount);
+        } else {
+            return creditLimit.subtract(amount);
+        }
+    }
+
+    @Override
+    public void changeCreditLimit(BigDecimal creditLimit, Long accountId) {
+        accountJpaRepository.changeCreditLimit(creditLimit, accountId);
     }
 
     @Override

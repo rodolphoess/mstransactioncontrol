@@ -73,3 +73,9 @@ In the paste `collection` on the application, you'll find a Postman collection. 
 7. Adding exception threatments on domain classes; OK
 8. Build a feature to dont show the document_number in logs;
 ```
+
+## To do
+
+- Adicionar um campo novo na tabela Account designado credit_limit que daria ao cliente um limite de valor da operação, não podendo deixar a conta com um valor negativo;
+- Para isso, ao fazer uma transação de saque ou compra, deveria decrescer esse valor do credit_limit inicial, não podendo o valor final de credit limit ser menor do que zero;
+- Sendo o valor de credit limit ok, salva a transação e atualiza o valor de credit_limit da Account para o novo valor após a transação;

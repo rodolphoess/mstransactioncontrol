@@ -6,7 +6,8 @@ CREATE SEQUENCE transaction_id_sequence START 1;
 CREATE TABLE "account" (
     "account_id" BIGINT NOT NULL DEFAULT nextval('account_id_sequence') PRIMARY KEY,
     "document_number" VARCHAR NOT NULL UNIQUE,
-    "account_type" VARCHAR
+    "account_type" VARCHAR,
+    "credit_limit" DECIMAL NOT NULL
 );
 
 CREATE TABLE "operation_type" (
