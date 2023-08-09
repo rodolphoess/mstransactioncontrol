@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @RestController
@@ -26,10 +27,14 @@ public class TransactionControlController implements TransactionControlPortIn {
 
     @Override
     @PostMapping("account")
-    public ResponseEntity<Object> createAccount(@RequestBody @Valid CreateAccountRequest request) {
+    public CompletableFuture<ResponseEntity<Object>> createAccount(@RequestBody @Valid CreateAccountRequest request) {
         log.info("[CONTROLLER] create_account_request: {}", request);
-        createAccountUseCase.execute(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body("The account was created with success!");
+//        createAccountUseCase.execute(request);
+//        return ResponseEntity.status(HttpStatus.CREATED).body("The account was created with success!");
+        return CompletableFuture.supplyAsync(() -> {
+            createAccountUseCase.execute(request);
+            return ResponseEntity.status(HttpStatus.CREATED).body("The account was created with success!");
+        });
     }
 
     @Override
