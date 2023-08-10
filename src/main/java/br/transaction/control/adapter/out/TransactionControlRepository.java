@@ -51,7 +51,7 @@ public class TransactionControlRepository implements TransactionControlPortOut {
         entity.setAccount(account);
 
         //TODO: Remove this code to the UseCase. This is a negotial treatment.
-        if (account.getCreditLimit().compareTo(transaction.getAmount()) < 0) {
+        if (transaction.getTransactionId() != 4 && account.getCreditLimit().compareTo(transaction.getAmount()) < 0) {
             throw new InsuficientCreditLimit("Dont have limit for this operation.");
         }
 
@@ -68,9 +68,11 @@ public class TransactionControlRepository implements TransactionControlPortOut {
 
     //TODO: Remove this code to core/domain layer.
     private BigDecimal evaluateNewCreditLimit(BigDecimal creditLimit, BigDecimal amount, Long operationType) {
-        if (operationType.equals(4L)) {
+        if (operationType == 4) {
+            log.info("operation_type_4");
             return creditLimit.add(amount);
         } else {
+            log.info("operation_type {}", operationType);
             return creditLimit.subtract(amount);
         }
     }
