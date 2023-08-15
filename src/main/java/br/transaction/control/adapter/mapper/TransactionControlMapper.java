@@ -33,4 +33,5 @@ public interface TransactionControlMapper {
     @Mapping(source = "account.accountId", target = "accountId")
     CreateTransactionResponse transactionEntityToResponse(TransactionEntity transactionEntity);
 
+    Account accountResponseToAccount(AccountResponse response);
 }

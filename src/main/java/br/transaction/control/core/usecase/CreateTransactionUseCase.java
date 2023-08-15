@@ -26,6 +26,8 @@ public class CreateTransactionUseCase implements CreateTransactionPortIn {
                 .reviewValueOfAmount()
                 .createDateTimeOfTransaction();
         log.info("[USE CASE] transaction_to_create: {}", transaction);
+        var account = repository.getAccount(transaction.getAccount().getAccountId());
+        transaction.setAccount(mapper.accountResponseToAccount(account));
         var transactionSaved = repository.createTransaction(transaction);
         log.info("[USE CASE] transaction_saved: {}", transactionSaved);
         return transactionSaved;
