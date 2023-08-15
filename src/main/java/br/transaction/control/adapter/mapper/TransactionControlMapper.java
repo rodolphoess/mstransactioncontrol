@@ -7,10 +7,13 @@ import br.transaction.control.adapter.request.CreateTransactionRequest;
 import br.transaction.control.adapter.response.AccountResponse;
 import br.transaction.control.adapter.response.CreateAccountResponse;
 import br.transaction.control.adapter.response.CreateTransactionResponse;
+import br.transaction.control.adapter.response.SumTransactionsResponse;
 import br.transaction.control.core.model.Account;
 import br.transaction.control.core.model.Transaction;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.math.BigDecimal;
 
 @Mapper
 public interface TransactionControlMapper {
@@ -34,4 +37,8 @@ public interface TransactionControlMapper {
     CreateTransactionResponse transactionEntityToResponse(TransactionEntity transactionEntity);
 
     Account accountResponseToAccount(AccountResponse response);
+
+    @Mapping(source = "sumAmount", target = "sumAmount")
+    SumTransactionsResponse valueAmountToSumTransactionsResponse(BigDecimal sumAmount);
+
 }

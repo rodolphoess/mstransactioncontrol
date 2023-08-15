@@ -16,6 +16,6 @@ public interface TransactionControlPortOut {
 
     AccountResponse getAccount(Long accountId);
 
-    BigDecimal getAmountSum(Long accountId, Long days);
+    BigDecimal getAmountSum(Long accountId);
 
 }

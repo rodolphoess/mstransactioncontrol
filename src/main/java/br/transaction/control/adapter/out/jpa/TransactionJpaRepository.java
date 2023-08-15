@@ -9,10 +9,7 @@ import java.math.BigDecimal;
 
 public interface TransactionJpaRepository extends JpaRepository<TransactionEntity, Long> {
 
-    @Query(value = "SELECT SUM(amount) AS total_amount FROM transaction " +
-            "WHERE account_id = :accountId " +
-            "AND event_date >= CURRENT_DATE - INTERVAL :days DAY", nativeQuery = true)
-    BigDecimal sumOfAmountOnTheLast30Days(@Param("accountId") Long accountId,
-                                          @Param("days") Long days);
+    @Query(value = "SELECT SUM(amount) AS total_amount FROM transaction WHERE account_id = :accountId AND event_date >= CURRENT_DATE - interval '30' day", nativeQuery = true)
+    BigDecimal sumOfAmountOnTheLast30Days(@Param("accountId") Long accountId);
 
 }

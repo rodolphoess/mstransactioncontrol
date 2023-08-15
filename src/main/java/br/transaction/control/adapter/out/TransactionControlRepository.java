@@ -59,8 +59,8 @@ public class TransactionControlRepository implements TransactionControlPortOut {
     }
 
     @Override
-    public BigDecimal getAmountSum(Long accountId, Long days) {
-        return transactionJpaRepository.sumOfAmountOnTheLast30Days(accountId, days);
+    public BigDecimal getAmountSum(Long accountId) {
+        return transactionJpaRepository.sumOfAmountOnTheLast30Days(accountId);
     }
 
 }

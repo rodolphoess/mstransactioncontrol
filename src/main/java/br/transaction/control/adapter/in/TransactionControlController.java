@@ -2,10 +2,7 @@ package br.transaction.control.adapter.in;
 
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
-import br.transaction.control.port.in.CreateAccountPortIn;
-import br.transaction.control.port.in.CreateTransactionPortIn;
-import br.transaction.control.port.in.RetrieveAccountPortIn;
-import br.transaction.control.port.in.TransactionControlPortIn;
+import br.transaction.control.port.in.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,6 +20,8 @@ public class TransactionControlController implements TransactionControlPortIn {
     private final CreateAccountPortIn createAccountUseCase;
     private final RetrieveAccountPortIn retrieveAccountPortIn;
     private final CreateTransactionPortIn createTransactionUseCase;
+
+    private final SumTransactionPortIn sumTransactionUseCase;
 
     @Override
     @PostMapping("account")
@@ -46,6 +45,15 @@ public class TransactionControlController implements TransactionControlPortIn {
         log.info("[CONTROLLER] create_transaction_request: {}", request);
         createTransactionUseCase.execute(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("The transaction was created with success!");
+    }
+
+    @Override
+    @GetMapping("transaction/account/{accountId}")
+    public ResponseEntity<Object> getSumTransaction(@PathVariable Long accountId) {
+        log.info("[CONTROLLER] get_sum_of_transactions_from_account {}", accountId);
+        var sumAmount = sumTransactionUseCase.execute(accountId);
+        log.info("[CONTROLLER] the_sum_is {}", sumAmount);
+        return ResponseEntity.ok().body(sumAmount);
     }
 
 }
