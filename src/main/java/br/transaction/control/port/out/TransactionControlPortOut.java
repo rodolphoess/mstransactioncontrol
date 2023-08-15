@@ -6,12 +6,16 @@ import br.transaction.control.adapter.response.CreateTransactionResponse;
 import br.transaction.control.core.model.Account;
 import br.transaction.control.core.model.Transaction;
 
+import java.util.Optional;
+
 public interface TransactionControlPortOut {
 
     CreateAccountResponse createAccount(Account account);
 
     CreateTransactionResponse createTransaction(Transaction transaction);
 
-    AccountResponse getAccount(Long accountId);
+    AccountResponse getAccountById(Long accountId);
+
+    Optional<AccountResponse> getAccountByDocumentNumber(String documentNumber);
 
 }
