@@ -33,10 +33,6 @@ public class TransactionControlRepository implements TransactionControlPortOut {
 
     @Override
     public CreateAccountResponse createAccount(Account account) {
-        var accountExists = accountJpaRepository.findByDocumentNumber(account.getDocumentNumber());
-        if (accountExists.isPresent()) {
-            throw new ExistingAccountException("This account already exists.");
-        }
         var savedAccount = accountJpaRepository.save(mapper.accountToEntity(account));
         log.info("[REPOSITORY] saved_account: {}", savedAccount);
         return mapper.accountEntityToResponse(savedAccount);
@@ -52,11 +48,17 @@ public class TransactionControlRepository implements TransactionControlPortOut {
     }
 
     @Override
-    public AccountResponse getAccount(Long accountId) {
+    public AccountResponse getAccountById(Long accountId) {
         var accountEntity = accountJpaRepository.findById(accountId)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found for id " + accountId));
         log.info("[REPOSITORY] retrivied_account_from_account_id: {}", accountEntity);
         return mapper.accountEntityToAccountResponse(accountEntity);
+    }
+
+    @Override
+    public Optional<AccountResponse> getAccountByDocumentNumber(String documentNumber) {
+        var account = accountJpaRepository.findByDocumentNumber(documentNumber);
+        return account.map(mapper::accountEntityToAccountResponse);
     }
 
     @Override

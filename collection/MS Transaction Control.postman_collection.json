@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"document_number\": \"28925952000135\"\n}",
+					"raw": "{\n    \"document_number\": \"07498554445\",\n    \"credit_limit\": 1000.00\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -73,7 +73,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"account_id\": 1,\n    \"operation_type\": 1,\n    \"amount\": 2350.692\n}",
+					"raw": "{\n    \"account_id\": 1,\n    \"operation_type\": 4,\n    \"amount\": 500\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -89,6 +89,71 @@
 					"port": "8080",
 					"path": [
 						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transaction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/transaction/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Transaction From the Last Days",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/transaction/account/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction",
+						"account",
+						"1"
 					]
 				}
 			},
