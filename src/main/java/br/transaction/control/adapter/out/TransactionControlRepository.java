@@ -3,7 +3,6 @@ package br.transaction.control.adapter.out;
 import br.transaction.control.adapter.exception.AccountNotFoundException;
 import br.transaction.control.adapter.exception.ExistingAccountException;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
-import br.transaction.control.adapter.out.entity.AccountEntity;
 import br.transaction.control.adapter.out.jpa.AccountJpaRepository;
 import br.transaction.control.adapter.out.jpa.TransactionJpaRepository;
 import br.transaction.control.adapter.response.AccountResponse;
@@ -44,12 +43,7 @@ public class TransactionControlRepository implements TransactionControlPortOut {
     @Override
     public CreateTransactionResponse createTransaction(Transaction transaction) {
         var entity = mapper.transactionToTransactionEntity(transaction);
-
-        var account = getAccountById(transaction.getAccount().getAccountId());
-        entity.setAccount(account);
-
         log.info("[REPOSITORY] transaction_to_save: {}", entity);
-
         var transactionEntity = transactionJpaRepository.save(entity);
         log.info("[REPOSITORY] transaction_saved_with_id: {}", transactionEntity.getTransactionId());
         return mapper.transactionEntityToResponse(transactionEntity);
@@ -57,14 +51,10 @@ public class TransactionControlRepository implements TransactionControlPortOut {
 
     @Override
     public AccountResponse getAccount(Long accountId) {
-        var accountEntity = getAccountById(accountId);
+        var accountEntity = accountJpaRepository.findById(accountId)
+                .orElseThrow(() -> new AccountNotFoundException("Account not found for id " + accountId));
         log.info("[REPOSITORY] retrivied_account_from_account_id: {}", accountEntity);
         return mapper.accountEntityToAccountResponse(accountEntity);
-    }
-
-    private AccountEntity getAccountById(Long accountId) {
-        return accountJpaRepository.findById(accountId)
-                .orElseThrow(() -> new AccountNotFoundException("Account not found for id " + accountId));
     }
 
 }
