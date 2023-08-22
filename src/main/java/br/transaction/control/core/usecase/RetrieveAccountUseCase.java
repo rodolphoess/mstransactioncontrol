@@ -16,6 +16,6 @@ public class RetrieveAccountUseCase implements RetrieveAccountPortIn {
 
     @Override
     public AccountResponse execute(Long accountId) {
-        return repository.getAccount(accountId);
+        return repository.getAccountById(accountId);
     }
 }

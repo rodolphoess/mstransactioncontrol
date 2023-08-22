@@ -29,8 +29,7 @@ public class TransactionEntity implements Serializable {
     @Column(name = "transaction_id", nullable = false, updatable = false)
     private Long transactionId;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @MapsId
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "account_id")
     private AccountEntity account;
 
