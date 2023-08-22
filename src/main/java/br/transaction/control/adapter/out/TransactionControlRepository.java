@@ -1,12 +1,15 @@
 package br.transaction.control.adapter.out;
 
 import br.transaction.control.adapter.exception.AccountNotFoundException;
+import br.transaction.control.adapter.exception.ExistingAccountException;
+import br.transaction.control.adapter.exception.TransactionNotFoundException;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.out.jpa.AccountJpaRepository;
 import br.transaction.control.adapter.out.jpa.TransactionJpaRepository;
 import br.transaction.control.adapter.response.AccountResponse;
 import br.transaction.control.adapter.response.CreateAccountResponse;
 import br.transaction.control.adapter.response.CreateTransactionResponse;
+import br.transaction.control.adapter.response.TransactionResponse;
 import br.transaction.control.core.model.Account;
 import br.transaction.control.core.model.Transaction;
 import br.transaction.control.port.out.TransactionControlPortOut;
@@ -43,7 +46,7 @@ public class TransactionControlRepository implements TransactionControlPortOut {
         log.info("[REPOSITORY] transaction_to_save: {}", entity);
         var transactionEntity = transactionJpaRepository.save(entity);
         log.info("[REPOSITORY] transaction_saved_with_id: {}", transactionEntity.getTransactionId());
-        return mapper.transactionEntityToResponse(transactionEntity);
+        return mapper.transactionEntityToCreateTransactionResponse(transactionEntity);
     }
 
     @Override
@@ -58,6 +61,15 @@ public class TransactionControlRepository implements TransactionControlPortOut {
     public Optional<AccountResponse> getAccountByDocumentNumber(String documentNumber) {
         var account = accountJpaRepository.findByDocumentNumber(documentNumber);
         return account.map(mapper::accountEntityToAccountResponse);
+    }
+
+    @Override
+    public TransactionResponse getTransaction(Long transactionId) {
+        log.info("[REPOSITORY] retrieve_transaction_of_id {}", transactionId);
+        var transactionEntity = transactionJpaRepository.findById(transactionId)
+                .orElseThrow(() -> new TransactionNotFoundException("The transaction doesn't exists."));
+        log.info("[REPOSITORY] retrivied_transaction: {}", transactionEntity);
+        return mapper.transactionEntityToTransactionResponse(transactionEntity);
     }
 
     @Override

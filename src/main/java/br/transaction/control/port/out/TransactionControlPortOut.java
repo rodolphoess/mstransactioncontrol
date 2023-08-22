@@ -3,6 +3,7 @@ package br.transaction.control.port.out;
 import br.transaction.control.adapter.response.AccountResponse;
 import br.transaction.control.adapter.response.CreateAccountResponse;
 import br.transaction.control.adapter.response.CreateTransactionResponse;
+import br.transaction.control.adapter.response.TransactionResponse;
 import br.transaction.control.core.model.Account;
 import br.transaction.control.core.model.Transaction;
 
@@ -19,6 +20,8 @@ public interface TransactionControlPortOut {
     AccountResponse getAccountById(Long accountId);
 
     Optional<AccountResponse> getAccountByDocumentNumber(String documentNumber);
+
+    TransactionResponse getTransaction(Long transactionId);
 
     BigDecimal getAmountSum(Long accountId);
 
