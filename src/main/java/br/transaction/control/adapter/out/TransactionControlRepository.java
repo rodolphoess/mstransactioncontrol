@@ -1,7 +1,6 @@
 package br.transaction.control.adapter.out;
 
 import br.transaction.control.adapter.exception.AccountNotFoundException;
-import br.transaction.control.adapter.exception.ExistingAccountException;
 import br.transaction.control.adapter.exception.TransactionNotFoundException;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.out.jpa.AccountJpaRepository;
@@ -19,8 +18,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Slf4j
 @Repository

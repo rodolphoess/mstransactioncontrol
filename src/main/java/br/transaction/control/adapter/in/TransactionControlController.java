@@ -2,10 +2,7 @@ package br.transaction.control.adapter.in;
 
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
-import br.transaction.control.port.in.CreateAccountPortIn;
-import br.transaction.control.port.in.CreateTransactionPortIn;
-import br.transaction.control.port.in.RetrieveAccountPortIn;
-import br.transaction.control.port.in.TransactionControlPortIn;
+import br.transaction.control.port.in.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
