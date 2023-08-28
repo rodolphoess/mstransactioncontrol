@@ -17,11 +17,11 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CreateAccountRequest {
 
-    @NotNull(message = "The field document number are invalid.")
-    @NotBlank(message = "The field document number are invalid.")
+    @NotNull
+    @NotBlank
     private String documentNumber;
-    @NotNull(message = "The field credit limit are invalid.")
-    @Positive(message = "The field credit limit are invalid.")
+    @NotNull
+    @Positive
     private BigDecimal creditLimit;
 
     public void setDocumentNumber(String documentNumber) {
