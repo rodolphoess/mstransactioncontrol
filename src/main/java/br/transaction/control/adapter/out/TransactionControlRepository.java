@@ -2,7 +2,6 @@ package br.transaction.control.adapter.out;
 
 import br.transaction.control.adapter.exception.AccountNotFoundException;
 import br.transaction.control.adapter.exception.TransactionNotFoundException;
-import br.transaction.control.adapter.exception.InsuficientCreditLimit;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.out.jpa.AccountJpaRepository;
 import br.transaction.control.adapter.out.jpa.TransactionJpaRepository;
@@ -24,7 +23,6 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-@Transactional
 @AllArgsConstructor
 public class TransactionControlRepository implements TransactionControlPortOut {
 
@@ -34,6 +32,7 @@ public class TransactionControlRepository implements TransactionControlPortOut {
     private TransactionJpaRepository transactionJpaRepository;
 
     @Override
+    @Transactional
     public CreateAccountResponse createAccount(Account account) {
         var savedAccount = accountJpaRepository.save(mapper.accountToEntity(account));
         log.info("[REPOSITORY] saved_account: {}", savedAccount);
@@ -47,26 +46,11 @@ public class TransactionControlRepository implements TransactionControlPortOut {
         log.info("[REPOSITORY] transaction_to_save: {}", entity);
         var transactionEntity = transactionJpaRepository.save(entity);
         log.info("[REPOSITORY] transaction_saved_with_id: {}", transactionEntity.getTransactionId());
-
-        var newCreditLimit = evaluateNewCreditLimit(account.getCreditLimit(), transactionEntity.getAmount(), transactionEntity.getOperationType());
-        log.info("new_credit_limit {}", newCreditLimit);
-        changeCreditLimit(newCreditLimit, account.getAccountId());
-
         return mapper.transactionEntityToCreateTransactionResponse(transactionEntity);
     }
 
-    //TODO: Remove this code to core/domain layer.
-    private BigDecimal evaluateNewCreditLimit(BigDecimal creditLimit, BigDecimal amount, Long operationType) {
-        if (operationType == 4) {
-            log.info("operation_type_4");
-            return creditLimit.add(amount);
-        } else {
-            log.info("operation_type {}", operationType);
-            return creditLimit.subtract(amount);
-        }
-    }
-
     @Override
+    @Transactional
     public void changeCreditLimit(BigDecimal creditLimit, Long accountId) {
         accountJpaRepository.changeCreditLimit(creditLimit, accountId);
     }

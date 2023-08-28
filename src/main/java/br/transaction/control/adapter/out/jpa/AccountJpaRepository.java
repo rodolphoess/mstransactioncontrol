@@ -14,8 +14,8 @@ public interface AccountJpaRepository extends JpaRepository<AccountEntity, Long>
     @Query(value = "select * from account acc where acc.document_number = :documentNumber", nativeQuery = true)
     Optional<AccountEntity> findByDocumentNumber(@Param("documentNumber") String documentNumber);
 
-    @Query(value = "update account set credit_limit = :creditLimit where account_id = :accountId", nativeQuery = true)
     @Modifying
+    @Query(value = "update account set credit_limit = :creditLimit where account_id = :accountId", nativeQuery = true)
     void changeCreditLimit(@Param("creditLimit") BigDecimal creditLimit,
                            @Param("accountId") Long accountId);
 

@@ -1,8 +1,8 @@
 package br.transaction.control.core.handler;
 
 import br.transaction.control.adapter.exception.AccountNotFoundException;
-import br.transaction.control.adapter.exception.InsuficientCreditLimit;
-import br.transaction.control.adapter.exception.ExistingAccountException;
+import br.transaction.control.core.exception.InsuficientCreditLimit;
+import br.transaction.control.core.exception.ExistingAccountException;
 import br.transaction.control.adapter.exception.TransactionNotFoundException;
 import br.transaction.control.core.exception.InvalidDocumentNumberException;
 import br.transaction.control.core.exception.OperationTypeException;

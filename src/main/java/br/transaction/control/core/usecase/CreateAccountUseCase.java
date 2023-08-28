@@ -1,6 +1,6 @@
 package br.transaction.control.core.usecase;
 
-import br.transaction.control.adapter.exception.ExistingAccountException;
+import br.transaction.control.core.exception.ExistingAccountException;
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.request.CreateAccountRequest;
 import br.transaction.control.adapter.response.CreateAccountResponse;
