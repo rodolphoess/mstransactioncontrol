@@ -1,4 +1,4 @@
-package br.transaction.control.adapter.exception;
+package br.transaction.control.core.exception;
 
 public class ExistingAccountException extends RuntimeException {
 

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,6 +19,7 @@ public class Account {
     private Long accountId;
     private String documentNumber;
     private String accountType;
+    private BigDecimal creditLimit;
 
     public Account removeSpecialCharactersFromDocumentNumber() {
         documentNumber = documentNumber.replaceAll("[^0-9]", "");

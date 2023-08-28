@@ -11,11 +11,8 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountResponse {
+public class SumTransactionsResponse {
 
-    private Long accountId;
-    private String documentNumber;
-    private String accountType;
-    private BigDecimal creditLimit;
+    private BigDecimal sumAmount;
 
 }

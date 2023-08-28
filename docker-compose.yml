@@ -14,15 +14,15 @@ services:
     ports:
       - "5432:5432"
 
-  mstransactioncontrol:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/transactioncontrol"
-      SPRING_DATASOURCE_USERNAME: "postgres"
-      SPRING_DATASOURCE_PASSWORD: "postgres"
-    ports:
-      - "8080:8080"
+#  mstransactioncontrol:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - postgres
+#    environment:
+#      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/transactioncontrol"
+#      SPRING_DATASOURCE_USERNAME: "postgres"
+#      SPRING_DATASOURCE_PASSWORD: "postgres"
+#    ports:
+#      - "8080:8080"

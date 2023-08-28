@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,5 +32,8 @@ public class AccountEntity implements Serializable {
 
     @Column(name = "account_type")
     private String accountType;
+
+    @Column(name = "credit_limit")
+    private BigDecimal creditLimit;
 
 }

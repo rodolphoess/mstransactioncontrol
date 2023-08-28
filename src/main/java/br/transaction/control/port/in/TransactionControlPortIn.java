@@ -11,4 +11,8 @@ public interface TransactionControlPortIn {
     ResponseEntity<Object> getAccount(Long accountId);
 
     ResponseEntity<Object> createTransaction(CreateTransactionRequest request);
+
+    ResponseEntity<Object> getTransaction(Long transactionId);
+
+    ResponseEntity<Object> getSumTransaction(Long accountId);
 }

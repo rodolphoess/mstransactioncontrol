@@ -1,7 +1,9 @@
 package br.transaction.control.core.handler;
 
 import br.transaction.control.adapter.exception.AccountNotFoundException;
-import br.transaction.control.adapter.exception.ExistingAccountException;
+import br.transaction.control.core.exception.InsuficientCreditLimit;
+import br.transaction.control.core.exception.ExistingAccountException;
+import br.transaction.control.adapter.exception.TransactionNotFoundException;
 import br.transaction.control.core.exception.InvalidDocumentNumberException;
 import br.transaction.control.core.exception.OperationTypeException;
 import lombok.extern.slf4j.Slf4j;
@@ -50,6 +52,24 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
             ) {
         log.error("[HANDLER EXCEPTION] document_number_is_invalid: " + e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Document number is invalid.");
+    }
+
+    @ExceptionHandler(value = {TransactionNotFoundException.class})
+    protected ResponseEntity<Object> transactionNotFound(
+            TransactionNotFoundException e,
+            WebRequest webRequest
+            ) {
+        log.error("[HANDLER EXCEPTION] this_transaction_doesnt_exists: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Transaction was not found.");
+    }
+
+    @ExceptionHandler(value = {InsuficientCreditLimit.class})
+    protected ResponseEntity<Object> insuficientCreditLimit(
+            InsuficientCreditLimit e,
+            WebRequest webRequest
+            ) {
+        log.error("[HANDLER EXCEPTION] insuficient_credit_limit: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You don't have suficient credit limit.");
     }
 
 }
