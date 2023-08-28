@@ -25,7 +25,7 @@ public class CreateAccountUseCase implements CreateAccountPortIn {
         var account = mapper.requestToAccount(request)
                 .removeSpecialCharactersFromDocumentNumber()
                 .defineAccountType();
-        var accountExists = repository.getAccountByDocumentNumber(request.getDocumentNumber());
+        var accountExists = repository.getAccountByDocumentNumber(account.getDocumentNumber());
         if (accountExists.isPresent()) {
             throw new ExistingAccountException("This account already exists.");
         }

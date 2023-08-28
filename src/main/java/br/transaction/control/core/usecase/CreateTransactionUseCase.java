@@ -2,11 +2,8 @@ package br.transaction.control.core.usecase;
 
 import br.transaction.control.adapter.mapper.TransactionControlMapper;
 import br.transaction.control.adapter.request.CreateTransactionRequest;
-import br.transaction.control.adapter.response.AccountResponse;
 import br.transaction.control.adapter.response.CreateTransactionResponse;
-import br.transaction.control.core.exception.InsuficientCreditLimit;
-import br.transaction.control.core.model.OperationType;
-import br.transaction.control.core.model.Transaction;
+import br.transaction.control.core.exception.InsuficientCreditLimitException;
 import br.transaction.control.port.in.CreateTransactionPortIn;
 import br.transaction.control.port.out.TransactionControlPortOut;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +41,7 @@ public class CreateTransactionUseCase implements CreateTransactionPortIn {
 
     private static void checkCreditLimitAfterTransaction(BigDecimal newCreditLimit) {
         if (newCreditLimit.compareTo(BigDecimal.ZERO) < 0) {
-            throw new InsuficientCreditLimit("You don't have credit limit for this transaction.");
+            throw new InsuficientCreditLimitException("You don't have credit limit for this transaction.");
         }
     }
 

@@ -1,5 +1,6 @@
 package br.transaction.control.adapter.request;
 
+import br.transaction.control.adapter.exception.ValidationLombokException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,11 +17,24 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CreateAccountRequest {
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "The field document number are invalid.")
+    @NotBlank(message = "The field document number are invalid.")
     private String documentNumber;
-    @NotNull
-    @Positive
+    @NotNull(message = "The field credit limit are invalid.")
+    @Positive(message = "The field credit limit are invalid.")
     private BigDecimal creditLimit;
 
+    public void setDocumentNumber(String documentNumber) {
+        if (documentNumber == null || documentNumber.isEmpty()) {
+            throw new ValidationLombokException("The field document number are invalid.");
+        }
+        this.documentNumber = documentNumber;
+    }
+
+    public void setCreditLimit(BigDecimal creditLimit) {
+        if (creditLimit == null || creditLimit.compareTo(BigDecimal.ZERO) < 0) {
+            throw new ValidationLombokException("The field credit limit are invalid.");
+        }
+        this.creditLimit = creditLimit;
+    }
 }
